@@ -1,7 +1,6 @@
 import boto3
-import pandas as pd
+import polars as pl
 import io
-from awswrangler import s3
 import logging
 
 # Set up logging
@@ -9,9 +8,12 @@ logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
 
 def lambda_handler(event, context):
-    df = pd.DataFrame({'Message': ['Hello World']})
+    # Create a Polars DataFrame
+    df = pl.DataFrame({'Message': ['Hello World']})
+
+    # Write the DataFrame to a buffer in Parquet format
     buffer = io.BytesIO()
-    df.to_parquet(buffer, index=False)
+    df.write_parquet(buffer)
     buffer.seek(0)
 
     try:

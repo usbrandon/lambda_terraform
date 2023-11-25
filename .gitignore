@@ -2,3 +2,6 @@
 *.tfstate.*
 *.zip
 /code/venv
+/lambda_layers
+.terraform*
+.terraform
