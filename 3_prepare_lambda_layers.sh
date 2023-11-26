@@ -5,6 +5,14 @@ VENV_DIR="venv"
 CODE_DIR="$(pwd)/code"   # Directory where your Lambda function code and requirements.txt are located
 LAYER_DIR="$(pwd)/lambda_layers"  # Directory to store layers
 
+# Check if the folder exists
+if [ -d "$LAYER_DIR" ]; then
+    echo "Found an old $LAYER_DIR exists. Deleting it..."
+    rm -rf "$LAYER_DIR"
+else
+    echo "Checked and found that $LAYER_DIR does not exist."
+fi
+
 echo "Creating lambda_layers directory at $LAYER_DIR"
 mkdir -p $LAYER_DIR
 
@@ -33,7 +41,7 @@ package_layer() {
 
     echo "Copying installed packages to $TARGET_DIR"
     # Use rsync to copy
-    rsync -av --exclude='pip*' --exclude='setuptools*' $VENV_DIR/lib/python3.11/site-packages/ $TARGET_DIR/
+    rsync -av --delete --exclude='pip*' --exclude='setuptools*' $VENV_DIR/lib/python3.11/site-packages/ $TARGET_DIR/
 
    # Change to the directory that contains $LAYER_NAME
     pushd "${LAYER_DIR}/${LAYER_NAME}"

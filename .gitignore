@@ -2,3 +2,4 @@
 *.tfstate.*
 *.zip
 /code/venv
+.terraform*
