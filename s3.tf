@@ -3,5 +3,5 @@ locals {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-lambda-s3-bucket"
+  bucket = var.s3_bucket_name
 }

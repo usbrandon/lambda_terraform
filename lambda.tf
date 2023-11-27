@@ -1,9 +1,8 @@
-# AWS Lambda function resource
-resource "aws_lambda_function" "test_lambda_function" {
-  function_name = "lambdaTest"
+resource "aws_lambda_function" "lambda_function" {
+  function_name = var.lambda_function_name
   package_type  = "Image"
-  image_uri     = "748487089563.dkr.ecr.us-east-1.amazonaws.com/my-lambda-function:latest"
+  image_uri     = var.image_uri
   role          = aws_iam_role.lambda_role.arn
   timeout       = 10
-  
 }
+
