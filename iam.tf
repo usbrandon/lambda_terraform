@@ -52,6 +52,7 @@ resource "aws_iam_policy" "lambda_logging" {
 
 resource "aws_iam_policy" "s3_access" {
   name   = "s3_access"
+  description = "IAM allow lambda to write to ${aws_s3_bucket.my_bucket.bucket_domain_name}"
   policy = data.aws_iam_policy_document.s3_access_policy.json
 }
 
